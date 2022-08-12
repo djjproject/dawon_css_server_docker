@@ -12,6 +12,6 @@ function clean() {
 
 function test_build() {
     build
-    docker run -dit --restart unless-stopped --name test test
+    docker run -dit --restart unless-stopped --network host -v /opt/powermanager:/app/data --name test test
     docker exec -it test /bin/bash
 }
