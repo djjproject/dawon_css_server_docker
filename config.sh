@@ -17,29 +17,28 @@ output "certificate"
 read -p "certificate create? [y/n] " INPUT
 
 if [ "x$INPUT" = "xy" ]; then
+    output "certificate password"
+    read -p "certificate password: " CERTI_PASSWORD
+
     sed -i -e "s,IP.1    = 10.0.0.4,IP.1    = $SERVER_IP,g" $CERTI_DIR/Server.cfg
  
     output "generate root certificate ..."
     openssl genrsa -out $CERTI_DIR/private/ca.key
     echo -e "\n\n\n\nPowerManager\n\n\n\n" | openssl req -new -key $CERTI_DIR/private/ca.key -out $CERTI_DIR/certs/ca.csr -config $CERTI_DIR/Server.cfg
     openssl x509 -req -days 3650 -extensions v3_ca -in $CERTI_DIR/certs/ca.csr -signkey $CERTI_DIR/private/ca.key -out $CERTI_DIR/newcerts/ca.crt -extfile $CERTI_DIR/Server.cfg
-
-    output "enter root certificate password"
-    openssl pkcs12 -inkey $CERTI_DIR/private/ca.key -in $CERTI_DIR/newcerts/ca.crt -export -out $CERTI_DIR/newcerts/ca.p12
+    openssl pkcs12 -inkey $CERTI_DIR/private/ca.key -in $CERTI_DIR/newcerts/ca.crt -export -out $CERTI_DIR/newcerts/ca.p12 -passout pass:$CERTI_PASSWORD
   
     output "generate server certificate ..."
     openssl genrsa -out $CERTI_DIR/private/S.key
     echo -e "\n\n\n\n$SERVER_IP\n\n\n\n" | openssl req -new -key $CERTI_DIR/private/S.key -out $CERTI_DIR/certs/S.csr -config $CERTI_DIR/Server.cfg
     openssl x509 -req -days 3650 -extensions v3_req -in $CERTI_DIR/certs/S.csr -CA $CERTI_DIR/newcerts/ca.crt -CAcreateserial -CAkey $CERTI_DIR/private/ca.key -out $CERTI_DIR/newcerts/S.crt -extfile $CERTI_DIR/Server.cfg
-    output "enter server certificate password"
-    openssl pkcs12 -inkey $CERTI_DIR/private/S.key -in $CERTI_DIR/newcerts/S.crt -export -out $CERTI_DIR/newcerts/S.p12
+    openssl pkcs12 -inkey $CERTI_DIR/private/S.key -in $CERTI_DIR/newcerts/S.crt -export -out $CERTI_DIR/newcerts/S.p12 -passout pass:$CERTI_PASSWORD
 
     output "generate client certificate ..."
     openssl genrsa -out $CERTI_DIR/private/C.key
     echo -e "\n\n\n\n\nPowerManager\n\n\n\n" | openssl req -new -key $CERTI_DIR/private/C.key -out $CERTI_DIR/certs/C.csr -config $CERTI_DIR/Client.cfg
     openssl x509 -req -days 365 -extensions v3_user_req -in $CERTI_DIR/certs/C.csr -CA $CERTI_DIR/newcerts/ca.crt -CAcreateserial -CAkey $CERTI_DIR/private/ca.key -out $CERTI_DIR/newcerts/C.crt -extfile $CERTI_DIR/Client.cfg
-    output "enter client certificate password"
-    openssl pkcs12 -inkey $CERTI_DIR/private/C.key -in $CERTI_DIR/newcerts/C.crt -export -out $CERTI_DIR/newcerts/C.p12
+    openssl pkcs12 -inkey $CERTI_DIR/private/C.key -in $CERTI_DIR/newcerts/C.crt -export -out $CERTI_DIR/newcerts/C.p12 -passout pass:$CERTI_PASSWORD
 
     output "copy generated certificate files ..."
     cp -ar -v $CERTI_DIR/newcerts $DATA_DIR/

@@ -40,8 +40,10 @@ cd $CERTI_DIR
 dos2unix Server.cfg
 dos2unix Client.cfg
 
-sed -i -e "s,HOME\t\t\t=.*,HOME\t\t\t= $CERTI,g" $CERTI_DIR/Server.cfg
-sed -i -e "s,HOME\t\t\t=.*,HOME\t\t\t= $CERTI,g" $CERTI_DIR/Client.cfg
+sed -i -e "s,HOME\t\t\t=.*,HOME\t\t\t= $CERTI_DIR,g" $CERTI_DIR/Server.cfg
+sed -i -e "s,HOME\t\t\t=.*,HOME\t\t\t= $CERTI_DIR,g" $CERTI_DIR/Client.cfg
+sed -i -e 's,RANDFILE\t\t=.*,#RANDFILE\t\t=,g' $CERTI_DIR/Server.cfg
+sed -i -e 's,RANDFILE\t\t=.*,#RANDFILE\t\t=,g' $CERTI_DIR/Client.cfg
 
 # dns server configuration
 cat << 'EOF' > /etc/bind/named.conf.local
