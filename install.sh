@@ -77,6 +77,10 @@ dwmqtt  IN      A       DJJPROJECT_CONF_SERVER_IP
 dwapi   IN      A       DJJPROJECT_CONF_SERVER_IP
 EOF
 
+# server config.yml
+mv $SERVER_DIR/config/config.yml $SERVER_DIR/config/config.yml.example
+chmod a+x $SERVER_DIR/PowerManagerServer
+
 # cleanup
 apt clean
 rm -rf /app/temp

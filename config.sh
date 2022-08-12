@@ -45,7 +45,9 @@ if [ "x$INPUT" = "xy" ]; then
 fi
 
 output "register root certificate ..."
-cp $DATA_DIR/newcerts/ca.crt /usr/local/share/ca-certificates/
+rm /usr/local/share/ca-certificates/ca.crt
+update-ca-certificates
+cp $DATA_DIR/newcerts/ca.crt /usr/local/share/ca-certificates/ca.crt
 update-ca-certificates
 
 output "dns server settings ..."
@@ -79,5 +81,30 @@ output "checks dns server lookup ..."
 nslookup dwmqtt.dawonai.com $SERVER_IP
 nslookup dwapi.dawonai.com $SERVER_IP
 nslookup dawonai.com $SERVER_IP
+
+output "server configuration ..."
+if [ ! -f $DATA_DIR/config.yml ]; then
+    output "no configuration file, install example file"
+    cp -v $SERVER_DIR/config/config.yml.example $DATA_DIR/config.yml
+    dos2unix $DATA_DIR/config.yml
+    
+    sed -i -e "s,ServerCertificate:.*,ServerCertificate: $DATA_DIR/newcerts/S.p12,g" config.yml
+    sed -i -e "s,DbPath:.*,DbPath: $DATA_DIR/PowerManager.sqlite,g" config.yml
+    
+    if [ "x$CERTI_PASSWORD" = "x" ]; then
+        output "certificate password"
+        read -p "enter server certificate password: " CERTI_PASSWORD
+    fi
+
+    sed -i -e "s,ServerCertificatePassword:.*,ServerCertificatePassword: $CERTI_PASSWORD,g" config.yml
+    
+    output "server configuration finished."
+    cat $DATA_DIR/config.yml
+else
+    output "already config.yml file in $DATA_DIR"
+fi
+
+
+
 
 output "finished. please restart containter."

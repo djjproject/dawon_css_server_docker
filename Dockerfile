@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 MAINTAINER djjproject <djj9404@gmail.com>
+WORKDIR /app
 
 # ports
 EXPOSE 18080 18443 1803 80 8883 443 53
