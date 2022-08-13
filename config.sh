@@ -88,18 +88,19 @@ if [ ! -f $DATA_DIR/config.yml ]; then
     cp -v $SERVER_DIR/config/config.yml.example $DATA_DIR/config.yml
     dos2unix $DATA_DIR/config.yml
     
-    sed -i -e "s,ServerCertificate:.*,ServerCertificate: $DATA_DIR/newcerts/S.p12,g" config.yml
-    sed -i -e "s,DbPath:.*,DbPath: $DATA_DIR/PowerManager.sqlite,g" config.yml
+    sed -i -e "s,ServerCertificate:.*,ServerCertificate: $DATA_DIR/newcerts/S.p12,g" $DATA_DIR/config.yml
+    sed -i -e "s,DbPath:.*,DbPath: $DATA_DIR/PowerManager.sqlite,g" $DATA_DIR/config.yml
     
     if [ "x$CERTI_PASSWORD" = "x" ]; then
         output "certificate password"
         read -p "enter server certificate password: " CERTI_PASSWORD
     fi
 
-    sed -i -e "s,ServerCertificatePassword:.*,ServerCertificatePassword: $CERTI_PASSWORD,g" config.yml
+    sed -i -e "s,ServerCertificatePassword:.*,ServerCertificatePassword: $CERTI_PASSWORD,g" $DATA_DIR/config.yml
     
     output "server configuration finished."
     cat $DATA_DIR/config.yml
+    echo ""
 else
     output "already config.yml file in $DATA_DIR"
 fi
