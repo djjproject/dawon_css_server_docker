@@ -81,6 +81,9 @@ EOF
 mv $SERVER_DIR/config/config.yml $SERVER_DIR/config/config.yml.example
 chmod a+x $SERVER_DIR/PowerManagerServer
 
+# openssl seclevel
+cp $ROOT/openssl.cnf /etc/ssl/openssl.cnf
+
 # cleanup
 apt clean
 rm -rf /app/temp
