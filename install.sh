@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TIMEZONE="Asia/Seoul"
-SERVER_URL="https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/449885d5/Linux64-449885d5.zip"
+SERVER_URL="https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/e1d011ae/Linux64-e1d011ae.zip"
 CERTI_URL="https://github.com/SeongSikChae/Certificate/releases/download/v1.0.0/Certificate.zip"
 
 ROOT=/app
