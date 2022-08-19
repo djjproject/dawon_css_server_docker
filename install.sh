@@ -1,7 +1,39 @@
 #!/bin/bash
 
 TIMEZONE="Asia/Seoul"
-SERVER_URL="https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/Linux64-fcb8758f.zip"
+
+SERVER_AMD64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/Linux64-fcb8758f.zip
+SERVER_ARM=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/LinuxARM-fcb8758f.zip
+SERVER_ARM64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/LinuxARM64-fcb8758f.zip
+
+echo "PLATFORM: $TARGETPLATFORM"
+
+case $TARGETPLATFORM in
+    "linux/arm64")
+        SERVER_URL=$SERVER_ARM64
+        echo "PLATFORM: linux/arm64"
+        echo "SERVER_URL: $SERVER_URL"
+        sleep 5
+        ;;
+    "linux/arm/v7")
+        SERVER_URL=$SERVER_ARM
+        echo "PLATFORM: linux/arm/v7"
+        echo "SERVER_URL: $SERVER_URL"
+        sleep 5
+        ;;
+    "linux/amd64")
+        SERVER_URL=$SERVER_AMD64
+        echo "PLATFORM: linux/amd64"
+        echo "SERVER_URL: $SERVER_URL"
+        sleep 5
+        ;;
+    *)
+        return -1 
+        ;;
+esac
+
+sleep 10
+
 CERTI_URL="https://github.com/SeongSikChae/Certificate/releases/download/v1.0.0/Certificate.zip"
 
 ROOT=/app

@@ -1,4 +1,5 @@
 # Docker Container for CSS PowerMangerServer
+architecture : arm/v7, arm64, amd64  
 dockerhub : https://hub.docker.com/r/djjproject/dawon_css_server  
 container git : https://github.com/djjproject/dawon_css_server_docker  
 original server source : https://github.com/SeongSikChae/PowerManagerServerV2  

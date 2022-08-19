@@ -2,7 +2,7 @@
 
 CONTAINER_NAME=test
 IMAGE_NAME=djjproject/dawon_css_server
-IMAGE_TAG=release-e1d011ae
+IMAGE_TAG=release-fcb8758f
 
 function build() {
     clean
@@ -22,9 +22,14 @@ function test_build() {
 }
 
 function push_image() {
+    clean
     build
     docker tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest
     docker push $IMAGE_NAME:$IMAGE_TAG
     docker push $IMAGE_NAME:latest
     clean
+}
+
+function multi_push_image() {
+    docker buildx build --platform linux/amd64,linux/arm64,linux/arm . --push --tag $IMAGE_NAME:$IMAGE_TAG --tag $IMAGE_NAME:latest
 }
