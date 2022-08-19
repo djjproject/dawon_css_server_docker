@@ -108,4 +108,4 @@ fi
 
 
 
-output "finished. please restart containter."
+output "finished. please restart container."
