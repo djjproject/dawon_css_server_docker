@@ -2,7 +2,7 @@
 
 CONTAINER_NAME=test
 IMAGE_NAME=djjproject/dawon_css_server
-IMAGE_TAG=release-fcb8758f
+IMAGE_TAG=release-56f20e8f
 
 function build() {
     clean

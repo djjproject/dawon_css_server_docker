@@ -1,10 +1,10 @@
 #!/bin/bash
 
 TIMEZONE="Asia/Seoul"
-
-SERVER_AMD64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/Linux64-fcb8758f.zip
-SERVER_ARM=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/LinuxARM-fcb8758f.zip
-SERVER_ARM64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/fcb8758f/LinuxARM64-fcb8758f.zip
+VERSION_TAG=56f20e8f
+SERVER_AMD64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/${VERSION_TAG}/Linux64-${VERSION_TAG}.zip
+SERVER_ARM=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/${VERSION_TAG}/LinuxARM-${VERSION_TAG}.zip
+SERVER_ARM64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/${VERSION_TAG}/LinuxARM64-${VERSION_TAG}.zip
 
 echo "PLATFORM: $TARGETPLATFORM"
 
@@ -31,6 +31,8 @@ case $TARGETPLATFORM in
         return -1 
         ;;
 esac
+
+echo "VERSION: $VERSION_TAG"
 
 sleep 10
 
