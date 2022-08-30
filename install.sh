@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TIMEZONE="Asia/Seoul"
-VERSION_TAG=56f20e8f
+VERSION_TAG=dc635973
 SERVER_AMD64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/${VERSION_TAG}/Linux64-${VERSION_TAG}.zip
 SERVER_ARM=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/${VERSION_TAG}/LinuxARM-${VERSION_TAG}.zip
 SERVER_ARM64=https://github.com/SeongSikChae/PowerManagerServerV2/releases/download/${VERSION_TAG}/LinuxARM64-${VERSION_TAG}.zip
