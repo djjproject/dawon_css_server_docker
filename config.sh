@@ -23,7 +23,7 @@ if [ "x$INPUT" = "xy" ]; then
     output "certificate common name"
     read -p "certificate common name: " CERTI_NAME
 
-    if [ "x$CERTI_NAME" = "x" ];
+    if [ "x$CERTI_NAME" = "x" ]; then
         CERTI_NAME="PowerManager"
     fi
 
